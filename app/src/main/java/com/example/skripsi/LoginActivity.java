@@ -15,7 +15,7 @@ import com.example.skripsi.API.APIRequestData;
 import com.example.skripsi.API.RetroServer;
 import com.example.skripsi.Activity.Admin.AdminActivity;
 import com.example.skripsi.Activity.Koor.KoorKurirActivity;
-import com.example.skripsi.Activity.Kurir.PengirimanKurirActivity;
+import com.example.skripsi.Activity.Koor.RutePengiriman.CekHitungActivity;
 import com.example.skripsi.Activity.SessionManagerLogin;
 import com.example.skripsi.Model.LoginModel.LoginData;
 import com.example.skripsi.Model.LoginModel.LoginModel;
@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         startActivity(intent);
                         finish();
                     } else {
-                        Intent intent = new Intent(LoginActivity.this, PengirimanKurirActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, CekHitungActivity.class);
                         startActivity(intent);
                         finish();
                     }

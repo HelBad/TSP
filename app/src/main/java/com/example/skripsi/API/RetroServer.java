@@ -11,7 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetroServer {
-    private static final String baseURL = "http://192.168.2.149/skripsi/";
+    private static final String baseURL = "http://192.168.1.69/skripsi/";
     private static Retrofit retro;
 
     public static Retrofit konekRetrofit(){
