@@ -15,6 +15,7 @@ import com.example.skripsi.API.APIRequestData;
 import com.example.skripsi.API.RetroServer;
 import com.example.skripsi.Activity.Admin.AdminActivity;
 import com.example.skripsi.Activity.Koor.KoorKurirActivity;
+import com.example.skripsi.Activity.Kurir.PengirimanKurirActivity;
 import com.example.skripsi.Activity.SessionManagerLogin;
 import com.example.skripsi.Model.LoginModel.LoginData;
 import com.example.skripsi.Model.LoginModel.LoginModel;
@@ -30,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     String stts, username, password;
     SessionManagerLogin SMLogin;
     //Integer Id;
-    SharedPreferences SP;
+//    SharedPreferences SP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(this);
 
-        SP = getSharedPreferences("TryoutOnline", Context.MODE_PRIVATE);
+//        SP = getSharedPreferences("skripsi", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -74,15 +75,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Toast.LENGTH_SHORT).show();
 
                     if(loginData.getStts().equals("admin")) {
-                        SharedPreferences.Editor editor = SP.edit();
-                        editor.putString("iduser", loginData.getId());
-                        editor.apply();
+//                        SharedPreferences.Editor editor = SP.edit();
+//                        editor.putString("iduser", loginData.getId());
+//                        editor.apply();
 
                         Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
                         startActivity(intent);
                         finish();
-                    } else {
+                    } else if(loginData.getStts().equals("koorkur")) {
                         Intent intent = new Intent(LoginActivity.this, KoorKurirActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent(LoginActivity.this, PengirimanKurirActivity.class);
                         startActivity(intent);
                         finish();
                     }
