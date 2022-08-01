@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,17 +43,19 @@ public class PengirimanKurirActivity extends AppCompatActivity {
     private final List<Integer> listSubtour = new ArrayList<>();
     private final List<Double> listHaversine = new ArrayList<>();
     private double totalJarak = 0;
+    private SharedPreferences SP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pengiriman_kurir);
 
-        idKurir = getIntent().getStringExtra("id_kurir");
+        idKurir = getIntent().getStringExtra("nip");
         tvTotal = findViewById(R.id.tvTotal);
         tvJarak = findViewById(R.id.tvJarak);
         rvPengiriman = findViewById(R.id.rvLatLong);
         btnCek = findViewById(R.id.buttonCheck);
+        SP = getSharedPreferences("user", Context.MODE_PRIVATE);
         rvPengiriman.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         loadData();
 

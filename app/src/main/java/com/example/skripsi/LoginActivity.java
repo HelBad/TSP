@@ -16,6 +16,7 @@ import com.example.skripsi.API.RetroServer;
 import com.example.skripsi.Activity.Admin.AdminActivity;
 import com.example.skripsi.Activity.Koor.KoorKurirActivity;
 import com.example.skripsi.Activity.Koor.RutePengiriman.CekHitungActivity;
+import com.example.skripsi.Activity.Kurir.PengirimanKurirActivity;
 import com.example.skripsi.Activity.SessionManagerLogin;
 import com.example.skripsi.Model.LoginModel.LoginData;
 import com.example.skripsi.Model.LoginModel.LoginModel;
@@ -31,7 +32,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     String stts, username, password;
     SessionManagerLogin SMLogin;
     //Integer Id;
-//    SharedPreferences SP;
+    private SharedPreferences SP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(this);
 
-//        SP = getSharedPreferences("skripsi", Context.MODE_PRIVATE);
+        SP = getSharedPreferences("user", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -75,19 +76,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Toast.LENGTH_SHORT).show();
 
                     if(loginData.getStts().equals("admin")) {
-//                        SharedPreferences.Editor editor = SP.edit();
-//                        editor.putString("iduser", loginData.getId());
-//                        editor.apply();
-
-                        Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                        SharedPreferences.Editor editor = SP.edit();
+                        editor.putString("nip", loginData.getNip());
+                        editor.apply();
+                        Intent intent = new Intent(LoginActivity.this, PengirimanKurirActivity.class);
                         startActivity(intent);
                         finish();
                     } else if(loginData.getStts().equals("koorkur")) {
+                        SharedPreferences.Editor editor = SP.edit();
+                        editor.putString("nip", loginData.getNip());
+                        editor.apply();
                         Intent intent = new Intent(LoginActivity.this, KoorKurirActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
-                        Intent intent = new Intent(LoginActivity.this, CekHitungActivity.class);
+                        SharedPreferences.Editor editor = SP.edit();
+                        editor.putString("nip", loginData.getNip());
+                        editor.apply();
+                        Intent intent = new Intent(LoginActivity.this, PengirimanKurirActivity.class);
+                        intent.putExtra("nip", loginData.getNip());
                         startActivity(intent);
                         finish();
                     }
