@@ -1,22 +1,27 @@
 package com.example.skripsi.Activity.Kurir;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.skripsi.API.APIRequestData;
 import com.example.skripsi.API.RetroServer;
+import com.example.skripsi.Activity.Admin.AdminActivity;
 import com.example.skripsi.Activity.Koor.RutePengiriman.TabelHitungActivity;
 import com.example.skripsi.Adapter.AdapterPengirimanKurir;
+import com.example.skripsi.LoginActivity;
 import com.example.skripsi.Model.PengirimanModel.DataPengirimanModel;
 import com.example.skripsi.Model.PengirimanModel.ResponPengirimanModel;
 import com.example.skripsi.OnClickListener;
@@ -43,6 +48,7 @@ public class PengirimanKurirActivity extends AppCompatActivity {
     private final List<Integer> listSubtour = new ArrayList<>();
     private final List<Double> listHaversine = new ArrayList<>();
     private double totalJarak = 0;
+    private ImageView imageUser;
     private SharedPreferences SP;
 
     @Override
@@ -70,6 +76,14 @@ public class PengirimanKurirActivity extends AppCompatActivity {
                     intent.putExtra("bundle", args);
                     startActivity(intent);
                 }
+            }
+        });
+
+        imageUser = findViewById(R.id.imageUser);
+        imageUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doLogout();
             }
         });
     }
@@ -207,5 +221,30 @@ public class PengirimanKurirActivity extends AppCompatActivity {
         int x = i % length;
         int y = i / ~length;
         return new int[]{x, y};
+    }
+
+    private void doLogout() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setMessage("Apakah anda ingin keluar akun ?");
+        dialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                SharedPreferences.Editor editor = SP.edit();
+                editor.putString("id_user", "");
+                editor.putString("status", "");
+                editor.putString("nip", "");
+                editor.apply();
+
+                Intent intent = new Intent(PengirimanKurirActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+                dialog.dismiss();
+            }
+        });
+        dialog.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

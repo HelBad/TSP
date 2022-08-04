@@ -58,6 +58,12 @@ public interface APIRequestData {
             //@Field("stts") String stts
     );
 
+    @FormUrlEncoded
+    @POST("login.php")
+    Call<LoginModel> ardStatus(
+            @Field("id") String id
+    );
+
     @GET("dataPengiriman/retrivePengiriman.php")
     Call<ResponPengirimanModel> ardRetrievePengiriman();
 

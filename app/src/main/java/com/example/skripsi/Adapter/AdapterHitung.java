@@ -1,6 +1,8 @@
 package com.example.skripsi.Adapter;
 
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,9 @@ import com.example.skripsi.Model.HitungModel.DataHitungModel;
 import com.example.skripsi.Model.HitungModel.ResponHitungModel;
 import com.example.skripsi.R;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,9 +48,23 @@ public class AdapterHitung extends RecyclerView.Adapter<AdapterHitung.HolderData
     public void onBindViewHolder(@NonNull HolderDataHitung holder, int position) {
         DataHitungModel dhm = listLatLong.get(position);
 
-        holder.tvId.setText(String.valueOf(dhm.getId()));
-        holder.tvLatitude.setText(String.valueOf(dhm.getLatitude()));
-        holder.tvLongitude.setText(String.valueOf(dhm.getLongitude()));
+
+
+        Geocoder geocoder = new Geocoder(ctx.getApplicationContext(), Locale.getDefault());
+        List<Address> addresses;
+        try {
+            addresses = geocoder.getFromLocation(dhm.getLatitude(), dhm.getLongitude(), 1);
+            if (addresses != null && addresses.size() > 0) {
+                String address = addresses.get(0).getAddressLine(0);
+
+                holder.tvId.setText(String.valueOf(dhm.getId()));
+                holder.tvAlamat.setText(address);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override
@@ -55,14 +73,13 @@ public class AdapterHitung extends RecyclerView.Adapter<AdapterHitung.HolderData
     }
 
     public class HolderDataHitung extends RecyclerView.ViewHolder{
-        TextView tvId, tvLatitude, tvLongitude;
+        TextView tvId, tvAlamat;
 
         public HolderDataHitung(@NonNull View itemView){
             super(itemView);
 
             tvId = itemView.findViewById(R.id.tvIdH);
-            tvLatitude = itemView.findViewById(R.id.tvLatitudeH);
-            tvLongitude = itemView.findViewById(R.id.tvLongitudeH);
+            tvAlamat = itemView.findViewById(R.id.tvAlamatH);
         }
     }
 

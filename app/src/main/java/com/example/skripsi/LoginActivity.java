@@ -77,20 +77,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     if(loginData.getStts().equals("admin")) {
                         SharedPreferences.Editor editor = SP.edit();
-                        editor.putString("nip", loginData.getNip());
+                        editor.putString("id_user", loginData.getId());
+                        editor.putString("status", loginData.getStts());
                         editor.apply();
-                        Intent intent = new Intent(LoginActivity.this, PengirimanKurirActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
                         startActivity(intent);
                         finish();
                     } else if(loginData.getStts().equals("koorkur")) {
                         SharedPreferences.Editor editor = SP.edit();
-                        editor.putString("nip", loginData.getNip());
+                        editor.putString("id_user", loginData.getId());
+                        editor.putString("status", loginData.getStts());
                         editor.apply();
                         Intent intent = new Intent(LoginActivity.this, KoorKurirActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
                         SharedPreferences.Editor editor = SP.edit();
+                        editor.putString("id_user", loginData.getId());
+                        editor.putString("status", loginData.getStts());
                         editor.putString("nip", loginData.getNip());
                         editor.apply();
                         Intent intent = new Intent(LoginActivity.this, PengirimanKurirActivity.class);

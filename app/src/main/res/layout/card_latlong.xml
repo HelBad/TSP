@@ -19,21 +19,16 @@
             android:id="@+id/tvIdH"
             android:text="Id Pengiriman"
             android:textSize="22sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textColor="@android:color/black"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvLatitudeH"
-            android:text="Latitude"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvLongitudeH"
-            android:text="Longitude"
-            android:textSize="18sp"/>
+            android:id="@+id/tvAlamatH"
+            android:text="Alamat"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
